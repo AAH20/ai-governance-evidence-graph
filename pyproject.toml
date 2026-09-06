@@ -1,0 +1,20 @@
+[build-system]
+requires=["setuptools>=68"]
+build-backend="setuptools.build_meta"
+
+[project]
+name="ai-governance-evidence-graph"
+version="0.1.0"
+description="Continuous AI assurance cases, governance evidence graphs, EU AI Act support, ISO 42001, NIST AI RMF, OSCAL, and in-toto attestations"
+readme="README.md"
+requires-python=">=3.10"
+license={text="Apache-2.0"}
+authors=[{name="Ahmed Hassan"}]
+keywords=["AI governance","AI assurance","EU AI Act compliance","ISO 42001","NIST AI RMF","OSCAL","AI audit"]
+classifiers=["Programming Language :: Python :: 3","License :: OSI Approved :: Apache Software License","Topic :: Security"]
+
+[project.scripts]
+assurancegraph="assurancegraph.cli:main"
+
+[tool.setuptools.packages.find]
+include=["assurancegraph*"]

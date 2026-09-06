@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-assurancegraph
+spec:
+  schedule: {{ .Values.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: compiler
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              args: ["compile","/case/case.json","--output","/tmp/assessment.json","--fail-on",{{ .Values.failOn | quote }}]
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10001
+              volumeMounts:
+                - name: case
+                  mountPath: /case
+                  readOnly: true
+          volumes:
+            - name: case
+              configMap:
+                name: {{ .Values.caseConfigMap }}

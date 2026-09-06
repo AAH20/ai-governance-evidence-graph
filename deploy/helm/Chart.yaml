@@ -1,0 +1,6 @@
+apiVersion: v2
+name: ai-governance-evidence-graph
+description: Continuous AI assurance case compiler
+type: application
+version: 0.1.0
+appVersion: "0.1.0"

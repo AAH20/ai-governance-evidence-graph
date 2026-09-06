@@ -1,0 +1,6 @@
+image:
+  repository: ghcr.io/aah20/ai-governance-evidence-graph
+  tag: latest
+schedule: "0 3 * * *"
+caseConfigMap: assurance-case
+failOn: reject

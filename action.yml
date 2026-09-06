@@ -1,0 +1,25 @@
+name: AI Governance Evidence Graph
+description: Compile a change-aware AI assurance case and export audit evidence
+branding:
+  icon: git-merge
+  color: blue
+inputs:
+  case:
+    description: Path to assurance-case JSON
+    required: true
+  fail-on:
+    description: never, reject, or restricted
+    required: false
+    default: reject
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        PYTHONPATH: ${{ github.action_path }}
+      run: |
+        python -m assurancegraph.cli compile "${{ inputs.case }}" --output assurance-assessment.json --fail-on "${{ inputs.fail-on }}"
+        python -m assurancegraph.cli export "${{ inputs.case }}" --format oscal --output assurance-oscal.json
+        python -m assurancegraph.cli export "${{ inputs.case }}" --format intoto --output assurance-intoto.json
+        python -m assurancegraph.cli export "${{ inputs.case }}" --format markdown --output assurance-brief.md
+        python -m assurancegraph.cli export "${{ inputs.case }}" --format html --output assurance-brief.html

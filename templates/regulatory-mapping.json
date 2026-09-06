@@ -1,0 +1,15 @@
+{
+  "mapping_id":"MAP-EXAMPLE",
+  "framework":"EU AI Act",
+  "framework_version":"Regulation (EU) 2024/1689; verify current amendments",
+  "requirement_reference":"Article or Annex reference",
+  "source_url":"https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+  "operator_role":"provider-or-deployer-to-be-reviewed",
+  "jurisdiction":"EU",
+  "applicability_date":"to-be-verified",
+  "claim_ids":[],
+  "review_status":"legal-review-required",
+  "reviewer":"unassigned",
+  "last_reviewed":null,
+  "notice":"Template only; not a legal interpretation or compliance determination."
+}
