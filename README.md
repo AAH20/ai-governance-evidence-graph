@@ -135,6 +135,8 @@ Mappings are implementation aids—not compliance determinations. They must incl
 
 ## Integration with the wider portfolio
 
+An optional [typed shadow-decision pilot](docs/TYPED_DECISION_PILOTS.md) now provides a provider-neutral `decision-proposal.v1` contract and six synthetic GRC, IAM, and physical-incident review-routing cases. It runs offline by default; a Jev adapter requires an explicit network flag and a TypeSafe API key. Outputs are hash-bound to the shared assurance-result v1 format and cannot authorize access, certify compliance, or control physical devices.
+
 ```mermaid
 flowchart LR
   S[AI-SPM exposure] --> A[AssuranceGraph]

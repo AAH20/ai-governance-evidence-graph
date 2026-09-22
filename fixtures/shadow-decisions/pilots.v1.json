@@ -1,0 +1,49 @@
+{
+  "pack_id": "portfolio-shadow-triage-v1",
+  "version": "1.0.0",
+  "description": "Six synthetic cases across governance evidence, IAM request, and physical-incident triage. Scripted answers demonstrate both successes and failures; they do not measure Jev.",
+  "cases": [
+    {
+      "case_id": "GRC-001", "domain": "grc-evidence", "data_classification": "public-synthetic",
+      "state": {"control": "access-review", "artifact": "synthetic-evidence", "signature_present": false, "source_age_days": 2},
+      "question": {"id": "evidence_route", "type": "choice", "instructions": "Which review queue best fits the described synthetic evidence item?", "criteria": {"ready-review": "Evidence is complete enough for a reviewer", "evidence-gap": "Required provenance or artifact is missing", "source-review": "The source or freshness needs checking"}},
+      "expected": "evidence-gap", "shadow_review_threshold": 0.8,
+      "mock_answer": {"type": "choice", "choice": "evidence-gap", "confidence": 0.93, "probabilities": {"ready-review": 0.02, "evidence-gap": 0.95, "source-review": 0.03}}
+    },
+    {
+      "case_id": "GRC-002", "domain": "grc-evidence", "data_classification": "public-synthetic",
+      "state": {"control": "model-risk", "artifact": "synthetic-report", "signature_present": true, "source_age_days": 91},
+      "question": {"id": "evidence_route", "type": "choice", "instructions": "Which review queue best fits the described synthetic evidence item?", "criteria": {"ready-review": "Evidence is complete enough for a reviewer", "evidence-gap": "Required provenance or artifact is missing", "source-review": "The source or freshness needs checking"}},
+      "expected": "source-review", "shadow_review_threshold": 0.8,
+      "mock_answer": {"type": "choice", "choice": "source-review", "confidence": 0.55, "probabilities": {"ready-review": 0.2, "evidence-gap": 0.2, "source-review": 0.6}}
+    },
+    {
+      "case_id": "IAM-001", "domain": "iam-request", "data_classification": "public-synthetic",
+      "state": {"principal": "synthetic-agent", "request": "read-audit-report", "privilege": "ordinary", "delegation_expired": false},
+      "question": {"id": "review_route", "type": "choice", "instructions": "Which review queue should inspect this synthetic access request?", "criteria": {"routine-review": "Ordinary scoped read request", "privileged-review": "Privileged or authority-changing request", "invalid-authority-review": "Expired or conflicting delegated authority"}},
+      "expected": "routine-review", "shadow_review_threshold": 0.9,
+      "mock_answer": {"type": "choice", "choice": "routine-review", "confidence": 0.96, "probabilities": {"routine-review": 0.97, "privileged-review": 0.02, "invalid-authority-review": 0.01}}
+    },
+    {
+      "case_id": "IAM-002", "domain": "iam-request", "data_classification": "public-synthetic",
+      "state": {"principal": "synthetic-agent", "request": "grant-admin-role", "privilege": "administrator", "delegation_expired": false},
+      "question": {"id": "review_route", "type": "choice", "instructions": "Which review queue should inspect this synthetic access request?", "criteria": {"routine-review": "Ordinary scoped read request", "privileged-review": "Privileged or authority-changing request", "invalid-authority-review": "Expired or conflicting delegated authority"}},
+      "expected": "privileged-review", "critical": true, "shadow_review_threshold": 0.9,
+      "mock_answer": {"type": "choice", "choice": "routine-review", "confidence": 0.97, "probabilities": {"routine-review": 0.97, "privileged-review": 0.02, "invalid-authority-review": 0.01}}
+    },
+    {
+      "case_id": "PHYS-001", "domain": "physical-incident", "data_classification": "public-synthetic",
+      "state": {"system": "synthetic-robot", "action": "handover", "consent_active": false, "policy_decision": "deny", "action_attempted": true},
+      "question": {"id": "incident_route", "type": "choice", "instructions": "Which human review queue should inspect this synthetic physical-AI record?", "criteria": {"safety-review": "Possible safety or consent violation", "evidence-review": "Recorder or provenance evidence is incomplete", "routine-review": "No urgent signal in the record"}},
+      "expected": "safety-review", "critical": true, "shadow_review_threshold": 0.95,
+      "mock_answer": {"type": "choice", "choice": "safety-review", "confidence": 0.97, "probabilities": {"safety-review": 0.98, "evidence-review": 0.01, "routine-review": 0.01}}
+    },
+    {
+      "case_id": "PHYS-002", "domain": "physical-incident", "data_classification": "public-synthetic",
+      "state": {"system": "synthetic-robot", "action": "handover", "consent_active": true, "policy_decision": "allow", "receipt_missing": true},
+      "question": {"id": "incident_route", "type": "choice", "instructions": "Which human review queue should inspect this synthetic physical-AI record?", "criteria": {"safety-review": "Possible safety or consent violation", "evidence-review": "Recorder or provenance evidence is incomplete", "routine-review": "No urgent signal in the record"}},
+      "expected": "evidence-review", "shadow_review_threshold": 0.95,
+      "mock_answer": {"type": "choice", "choice": "evidence-review", "confidence": 0.8, "probabilities": {"safety-review": 0.1, "evidence-review": 0.8, "routine-review": 0.1}}
+    }
+  ]
+}
